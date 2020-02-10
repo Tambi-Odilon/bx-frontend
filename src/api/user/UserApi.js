@@ -29,6 +29,17 @@ class UserApi {
         }
       }
 
+    // add a new user
+    addUser(user) {
+      if (jwtToken == null) {
+        let jwt = AuthenticationService.loadToken(TOKEN_NAME)
+        return axios.post(`${API_URL}/users`, user, {headers: { 'Authorization' : jwt}})
+      }
+      else{
+        return axios.post(`${API_URL}/users`, user, {headers: { 'Authorization' : jwtToken}})
+      }
+    }
+
 }
 
 export default new UserApi();

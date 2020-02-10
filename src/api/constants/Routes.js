@@ -15,15 +15,27 @@ const Home = Loadable({
     loading: Loading,
 });
 
-const User = Loadable({
+const ListUser = Loadable({
     loader: () => import('../../views/Users/ListUser'),
+    loading: Loading,
+});
+
+const AddUser = Loadable({
+    loader: () => import('../../views/Users/AddUser'),
+    loading: Loading,
+});
+
+const Error404 = Loadable({
+    loader: () => import('../../views/pages/ErrorPage/Error404'),
     loading: Loading,
 });
 
 const routes = [
     { path: '/dashboard', name: 'Dashboard Page', component: Dashboard },
     { path: '/home', name: 'Home Page', component: Home },
-    { path: '/user', name: 'User Page', component: User }
+    { path: '/users', name: 'List User Page', component: ListUser },
+    { path: '/user', name: 'Add User Page', component: AddUser },
+    { path: '/error404', name: 'Error 404 Page', component: Error404 }
 ]
 
 export default routes;

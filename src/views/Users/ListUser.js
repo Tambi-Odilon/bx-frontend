@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Table, Row, Col, CardBody, CardHeader, Button } from "reactstrap";
 import UserApi from "../../api/user/UserApi";
+import { Link } from "react-router-dom";
 
 class ListUser extends Component {
     constructor(props) {
@@ -34,8 +35,8 @@ class ListUser extends Component {
         UserApi.deleteUser(id)
         .then(
           response => {
-              this.refresh()
-            alert('Suppression de ' + username + ' avec success!')
+            this.refresh()
+            /* alert('Suppression de ' + username + ' avec success!') */
             
           }
         )
@@ -53,10 +54,12 @@ class ListUser extends Component {
                 <Row>
                     <Col>
                     <CardHeader>
-                            <strong><i className="icon-info pr-1"></i>Listes des users:</strong>
+                            <strong><i className="icon-info pr-1"></i>List of users:</strong>
                     </CardHeader>
                         <CardBody>
-
+                            <div className="float-right" id="addUtilisateur">
+                                <Button color="success" tag={Link} to="/user">Add new User</Button>
+                            </div> 
                             <Table responsive striped hover>
                                 <thead>
                                     <tr>

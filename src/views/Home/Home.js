@@ -12,7 +12,7 @@ class Home extends Component {
                 </div>
                 
                 <div className="float-left" id="addUtilisateur">
-                    <Button color="success" tag={Link} to="/user">List Users</Button>
+                    <Button color="success" tag={Link} to="/users">List Users</Button>
                 </div> 
             </div>
         )

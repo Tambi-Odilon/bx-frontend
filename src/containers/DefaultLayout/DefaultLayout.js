@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import { Redirect, Route, Switch, Link } from 'react-router-dom';
+import { Container, Button } from 'reactstrap';
 import routes from '../../api/constants/Routes';
 
 import {
   AppBreadcrumb
 } from '@coreui/react';
+import Error404 from '../../views/pages/ErrorPage/Error404';
 
 class DefaultLayout extends Component {
   render() {
@@ -15,6 +16,9 @@ class DefaultLayout extends Component {
           <main className="main">
             {/* page name */}
             <AppBreadcrumb appRoutes={routes}/>
+            <div id="home">
+                    <Button color="info" tag={Link} to="/home">Home</Button>
+              </div> 
             <Container fluid>
               <Switch>
                 {routes.map((route, idx) => {
@@ -36,7 +40,7 @@ class DefaultLayout extends Component {
                     => redirect /dashboard
                   Sinon login
                 */}
-
+                <Route name="Error 404 Page" component={Error404} />
                 <Redirect exact from="/" to="/dashboard" />
               </Switch>
             </Container>
