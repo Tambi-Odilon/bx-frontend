@@ -80,7 +80,7 @@ constructor(props){
       <Container>
         <Card className="mx-4">
           <CardHeader>
-            <i className="icon-note"></i><strong>Editer Utilisateur : <i><strong>{userNew.username}</strong></i></strong>
+    <i className="icon-note"></i><strong>Editer Utilisateur : <i><strong>{userNew.username}, </strong> </i>Id => <i><strong>{userNew.idUser}</strong></i></strong>
           </CardHeader>
           <CardBody className="p-4">
             <Formik

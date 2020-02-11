@@ -1,12 +1,28 @@
 import React, { Component, Suspense } from 'react';
-import { Redirect, Route, Switch, Link } from 'react-router-dom';
+import { 
+  Redirect, 
+  Route, 
+  Switch, 
+  Link } from 'react-router-dom';
 import { Container, Button } from 'reactstrap';
 import routes from '../../api/constants/Routes';
+import navigation from '../../api/constants/link';
 
 import {
-  AppBreadcrumb
+  AppBreadcrumb,
+  AppFooter,
+  AppHeader,
+  AppSidebar,
+  AppSidebarHeader,
+  AppSidebarForm,
+  AppSidebarNav,
+  AppSidebarFooter,
+  AppSidebarMinimizer
+
 } from '@coreui/react';
 import Error404 from '../../views/pages/ErrorPage/Error404';
+import FooterLayout from './FooterLayout';
+import HeaderLayout from './HeaderLayout';
 
 class DefaultLayout extends Component {
 
@@ -15,8 +31,19 @@ class DefaultLayout extends Component {
   render() {
     return (
       <div className="app">
+        <AppHeader fixed>
+          <HeaderLayout />
+        </AppHeader>
         <div className="app-body">
+        <AppSidebar fixed display="lg">
+            <AppSidebarHeader />
+            <AppSidebarForm />
+            <AppSidebarNav navConfig={navigation} {...this.props} />
+            <AppSidebarFooter />
+            <AppSidebarMinimizer />
+          </AppSidebar>
           <main className="main">
+          
             {/* page name */}
             <AppBreadcrumb appRoutes={routes}/>
             <div id="home">
@@ -59,7 +86,9 @@ class DefaultLayout extends Component {
             </Container>
           </main>
         </div>
-        
+        <AppFooter>
+          <FooterLayout />
+        </AppFooter>
       </div>
     );
   }
