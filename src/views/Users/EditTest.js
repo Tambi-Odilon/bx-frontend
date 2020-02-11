@@ -1,131 +1,148 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
-    Button,
-    Card,
-    CardHeader,
-    CardBody,
-    Col,
-    Form,
-    FormFeedback,
-    FormGroup,
-    Label,
-    Input,
-    Row,
-    Container
-  } from 'reactstrap';
-  import {Formik} from 'formik';
-  import * as Yup from 'yup';
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  Col,
+  CustomInput,
+  Form,
+  FormFeedback,
+  FormGroup,
+  Label,
+  Input,
+  Row,
+  Container
+} from 'reactstrap';
+import {Formik} from 'formik';
+import * as Yup from 'yup'
 import UserApi from '../../api/user/UserApi';
 import RoleApi from '../../api/role/RoleApi';
 
-  // Debut*********** ######### Traitement du formulaire ######### **************
+// Debut*********** ######### Traitement du formulaire ######### **************
 
 const validationSchema = function (values) {
-    return Yup.object().shape({
-    
-      userName: Yup.string()
-        .min(3, `Nom Utilisateur doit être ${3} characters minimum`)
-        .required('Nom d\'utilisateur Obligatoire'),
-     
-      password: Yup.string()
-        .min(5, `Mot de Passe doit être ${5} characters minimum!`)
-        .matches(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}/, 'Mot de Passe doit contenir: nombre, Lettres Majuscules et Minuscules\n')
-        .required('Mot de Passe Obligatoire'),
-      confirmPassword: Yup.string()
-        .oneOf([values.password], 'Votre Mot de Passe est different')
-        .required('Confirmation Mot de Passe Obligatoire'),
-      
-    })
-  }
+  return Yup.object().shape({
   
-  const validate = (getValidationSchema) => {
-    return (values) => {
-      const validationSchema = getValidationSchema(values)
-      try {
-        validationSchema.validateSync(values, {
-          abortEarly: false
-        })
-        return {}
-      } catch (error) {
-        return getErrorsFromValidationError(error)
-      }
+    userName: Yup.string()
+      .min(3, `Nom Utilisateur doit être ${3} characters minimum`)
+      .required('Nom d\'utilisateur Obligatoire'),
+   
+    password: Yup.string()
+      .min(5, `Mot de Passe doit être ${5} characters minimum!`)
+      .matches(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/, 'Mot de Passe doit contenir: nombre, Lettres Majuscules et Minuscules\n')
+      .required('Mot de Passe Obligatoire'),
+    confirmPassword: Yup.string()
+      .oneOf([values.password], 'Votre Mot de Passe est different')
+      .required('Confirmation Mot de Passe Obligatoire'),
+    
+  })
+}
+
+const validate = (getValidationSchema) => {
+  return (values) => {
+    const validationSchema = getValidationSchema(values)
+    try {
+      validationSchema.validateSync(values, {
+        abortEarly: false
+      })
+      return {}
+    } catch (error) {
+      return getErrorsFromValidationError(error)
     }
   }
-  
-  const getErrorsFromValidationError = (validationError) => {
-    const FIRST_ERROR = 0
-    return validationError.inner.reduce((errors, error) => {
-      return {
-        ...errors,
-        [error.path]: error.errors[FIRST_ERROR],
-      }
-    }, {})
-  }
-  
-  // Fin*********** ######### Traitement du formulaire ######### **************
-  
-  const initialValues = {
-    userName: "",
-    password: "",
-    confirmPassword: "",
-  }
-  
-  
-class AddUser extends Component {
+}
+
+const getErrorsFromValidationError = (validationError) => {
+  const FIRST_ERROR = 0
+  return validationError.inner.reduce((errors, error) => {
+    return {
+      ...errors,
+      [error.path]: error.errors[FIRST_ERROR],
+    }
+  }, {})
+}
+
+// Fin*********** ######### Traitement du formulaire ######### **************
+
+const initialValues = {
+  userName: "",
+  password: "",
+  confirmPassword: "",
+}
+
+class EditTest extends React.Component {
+userVide = {
+      role1: '',
+      userName1: '',
+      password1: '',
+      confirmPassword1: ''
+    };
+constructor(props){
     
-    constructor(props){
-        super(props);
-        this.state = {
-          roles: [],
-          role: '',
+    super(props);
+    this.state = {
+        roles: [],
+        role: '',
           userName: '',
           password: '',
-          confirmPassword: ''
-        };
-    
-        this.onSubmit = this.onSubmit.bind(this)
-        this.touchAll = this.touchAll.bind(this)
-      }
+          confirmPassword: '',
+      userNew: this.userVide
+    };
 
-      componentDidMount() {
-        RoleApi.getAllRoles()
-          .then(Response => {
-            //console.log(Response.data)
-            this.setState({
-            roles: Response.data
-          })
-          } );
-      }
-
-      onSubmit(values, {setSubmitting,setErrors}) {
-
-        let user = {
-          username: values.userName,
-          password: values.password
-        }
-        let usersRoles = {
-          username: values.userName,
-          role: values.role
-        }
-      //console.log('Username: ' + user.username + 'Password: ' + user.password);
-      console.log('******* Role: ' + usersRoles.role);
-      console.log('******* Role: ' + usersRoles.username);
-    
-        UserApi.addUser(user)
-    
-        setTimeout(() => {
-          //alert(JSON.stringify(values, null, 2))
-          if (user != null) {
-            // alert("Ajout avec succes!");
-            this.props.history.push('/users');
-          }
-          // console.log('User has been successfully saved!', values)
-          setSubmitting(false)
-        }, 1200)
-          // console.log(values);
-      }
-
+    this.onSubmit = this.onSubmit.bind(this)
+    this.touchAll = this.touchAll.bind(this)
+  }
+ async componentDidMount() {
+        // console.log("**** CDidMont id : " + this.props.match.params.idUser)
       
+    UserApi.getUser(this.props.match.params.idUser)
+      .then(Response => {
+        // console.log(Response.data)
+        this.setState({
+        userNew: Response.data
+      }) 
+      } );
+      RoleApi.getAllRoles()
+      .then(Response => {
+        //console.log(Response.data)
+        this.setState({
+        roles: Response.data
+      })
+      } );
+  }
+
+  onSubmit(values, {setSubmitting,setErrors}) {
+
+    console.log(values)
+    console.log(this.props.match.params.idUser)
+    let user = {
+        idUser: this.props.match.params.idUser,
+      username: values.userName,
+      password: values.password
+    }
+    let usersRoles = {
+      username: values.userName,
+      role: values.role
+    }
+
+    UserApi.updateUser(user.idUser, user)
+
+    //UserDataServices.addUser(user)
+    //UserDataServices.affectRoleToUser(usersRoles)
+
+    setTimeout(() => {
+      //alert(JSON.stringify(values, null, 2))
+      if (user != null) {
+        alert("Mise a jour Utilisateur avec succes!");
+        this.props.history.push('/users');
+      }
+      // console.log('User has been successfully saved!', values)
+      setSubmitting(false)
+    }, 1200)
+      // console.log(values);
+  }
+
 // Debut*********** ######### Traitement du formulaire ######### **************
 
   findFirstError (formName, hasError) {
@@ -156,20 +173,25 @@ class AddUser extends Component {
 
 // Fin*********** ######### Traitement du formulaire ######### **************
 
+  render() {
+      const userNew = this.state.userNew;
+// console.log(userNew)
+    const roles = this.state.roles;
+// console.log(roles)
 
-    render() {
-        const roles = this.state.roles;
+    /* const test = roles.map(r => {
+      console.log(r.role)
+    }) */
 
-        return (
-            <div className="animated fadeIn">
-               <Container>
+    return (
+      <div className="animated fadeIn">
+      <Container>
         <Card className="mx-4">
           <CardHeader>
-            <i className="icon-note"></i><strong>Nouveau Utilisateur</strong>
+            <i className="icon-note"></i><strong>Editer Utilisateur : <i><strong>{userNew.username}</strong></i></strong>
           </CardHeader>
           <CardBody className="p-4">
             <Formik
-              initialValues={initialValues}
               validate={validate(validationSchema)}
               onSubmit={this.onSubmit}
               render={
@@ -196,14 +218,15 @@ class AddUser extends Component {
                           <Input type="text"
                                  name="userName"
                                  id="userName"
-                                 placeholder="User Name"
+                                 placeholder= {userNew.username}//"Nouveau Nom Utilisateur"
                                  autoComplete="username"
                                  valid={!errors.userName}
                                  invalid={touched.userName && !!errors.userName}
-                                 required
+                                 required //initialValues={initialValues}
                                  onChange={handleChange}
                                  onBlur={handleBlur}
-                                 value={values.userName} />
+                                 value={ values.userName }
+                                 />
                           <FormFeedback>{errors.userName}</FormFeedback>
                         </FormGroup>
                         <FormGroup>
@@ -213,8 +236,8 @@ class AddUser extends Component {
                                  id="role"
                                  // placeholder="Role"
                                  // autoComplete="role"
-                                 // valid={!errors.role}
-                                 // invalid={touched.role && !!errors.role}
+                                 valid={!errors.role}
+                                 invalid={touched.role && !!errors.role}
                                  required
                                  onChange={handleChange}
                                  onBlur={handleBlur}
@@ -233,7 +256,7 @@ class AddUser extends Component {
                               <Input type="password"
                                      name="password"
                                      id="password"
-                                     placeholder="Password"
+                                     placeholder="Nouveau Password"
                                      autoComplete="new-password"
                                      valid={!errors.password}
                                      invalid={touched.password && !!errors.password}
@@ -251,7 +274,7 @@ class AddUser extends Component {
                               <Input type="password"
                                      name="confirmPassword"
                                      id="confirmPassword"
-                                     placeholder="Confirm password"
+                                     placeholder="Confirm Nouveau password"
                                      autoComplete="new-password"
                                      valid={!errors.confirmPassword}
                                      invalid={touched.confirmPassword && !!errors.confirmPassword}
@@ -276,9 +299,8 @@ class AddUser extends Component {
           </CardBody>
         </Card>
         </Container>
-            </div>
-        )
-    }
+      </div>
+    )
+  }
 }
-
-export default AddUser;
+export default EditTest;

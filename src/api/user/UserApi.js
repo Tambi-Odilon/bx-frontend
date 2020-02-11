@@ -18,6 +18,18 @@ class UserApi {
         }
     }
 
+    // get user by id
+    getUser(idUser){
+      console.log("****getUser: "+idUser)
+      if (jwtToken == null) {
+        let jwt = AuthenticationService.loadToken(TOKEN_NAME)
+        return axios.get(`${API_URL}/users/${idUser}`, {headers: { 'Authorization' : jwt}})
+      }
+      else{
+        return axios.get(`${API_URL}/users/${idUser}`, { headers: {'Authorization': jwtToken}})
+      }
+    }
+
     // delete user with {id}
     deleteUser(idUser) {
         if (jwtToken == null) {
@@ -37,6 +49,17 @@ class UserApi {
       }
       else{
         return axios.post(`${API_URL}/users`, user, {headers: { 'Authorization' : jwtToken}})
+      }
+    }
+
+    // update user selected
+    updateUser(idUser, user) {
+      if (jwtToken == null) {
+        let jwt = AuthenticationService.loadToken(TOKEN_NAME)
+        return axios.put(`${API_URL}/users/${idUser}`, user, {headers: { 'Authorization' : jwt}})
+      }
+      else{
+        return axios.put(`${API_URL}/users/${idUser}`, user, {headers: { 'Authorization' : jwtToken}})
       }
     }
 

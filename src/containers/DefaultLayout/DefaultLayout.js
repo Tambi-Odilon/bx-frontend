@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch, Link } from 'react-router-dom';
 import { Container, Button } from 'reactstrap';
 import routes from '../../api/constants/Routes';
@@ -9,6 +9,9 @@ import {
 import Error404 from '../../views/pages/ErrorPage/Error404';
 
 class DefaultLayout extends Component {
+
+  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+
   render() {
     return (
       <div className="app">
@@ -20,17 +23,22 @@ class DefaultLayout extends Component {
                     <Button color="info" tag={Link} to="/home">Home</Button>
               </div> 
             <Container fluid>
+              <Suspense fallback={this.loading()}>
+
+            {/* <Router><BrowserRouter> */}
+            
               <Switch>
                 {routes.map((route, idx) => {
                     return route.component ? (
                     <Route 
                     key={idx} 
                     path={route.path} 
-                    exact={route.exact} 
+                    exact={route.exact}
                     name={route.name} 
                     render={props => (
                         <route.component {...props} />
-                      )} />)
+                      )} />
+                      )
                       : (null);
                   },
                 )}
@@ -40,10 +48,14 @@ class DefaultLayout extends Component {
                     => redirect /dashboard
                   Sinon login
                 */}
+                
                 <Redirect exact from="/" to="/dashboard" />
-                <Route name="Error 404 Page" component={Error404} />
+                <Route name="Error 404 Page" component={Error404} /> 
                 
               </Switch>
+              
+              {/* </Router></BrowserRouter> */}
+              </Suspense>
             </Container>
           </main>
         </div>

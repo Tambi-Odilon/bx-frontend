@@ -58,7 +58,7 @@ class ListUser extends Component {
                     </CardHeader>
                         <CardBody>
                             <div className="float-right" id="addUtilisateur">
-                                <Button color="success" tag={Link} to="/user">Add new User</Button>
+                                <Button color="success" tag={Link} to="/user/add">Add new User</Button>
                             </div> 
                             <Table responsive striped hover>
                                 <thead>
@@ -71,14 +71,14 @@ class ListUser extends Component {
                                 </thead>
                                 <tbody>
                                 {listeUsers.map(user => (
-                                    <tr>
+                                    <tr key={user.idUser}>
                                         <td>{user.idUser}</td>
                                         <td>{user.username}</td>
                                         <td></td>
                                         <td>
                                         <Row>
                                             <Col md={3}>
-                                                <Button color="primary" className="px-4" /* href={"#/rh/utilisateur/edit/" + user.idUser}  */>Editer</Button>
+                                                <Button color="primary" className="px-4" href={"/user/edit/" + user.idUser}>Editer</Button>
                                             </Col>
                                             <Col md={3}>
                                                 <Button color="danger" className="px-4" onClick={() => this.deleteClicked(user.idUser, user.username)}>Supprimer</Button>
