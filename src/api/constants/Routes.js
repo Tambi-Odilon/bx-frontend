@@ -11,7 +11,7 @@ const Dashboard = Loadable({
 });
 
 const Home = Loadable({
-    loader: () => import('../../views/Home/Home'),
+    loader: () => import('../../views/pages/Home/Home'),
     loading: Loading,
 });
 

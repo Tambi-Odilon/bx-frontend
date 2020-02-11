@@ -40,8 +40,9 @@ class DefaultLayout extends Component {
                     => redirect /dashboard
                   Sinon login
                 */}
-                <Route name="Error 404 Page" component={Error404} />
                 <Redirect exact from="/" to="/dashboard" />
+                <Route name="Error 404 Page" component={Error404} />
+                
               </Switch>
             </Container>
           </main>
