@@ -7,6 +7,8 @@ import DefaultLayout from './containers/DefaultLayout/DefaultLayout';
 
 // Import Main styles for this application
 import './scss/style.css';
+// Import Font Awesome Icons Set
+import 'font-awesome/css/font-awesome.min.css';
 
 class App extends Component {
   render () {

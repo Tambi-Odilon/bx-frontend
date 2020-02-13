@@ -13,7 +13,7 @@ export default {
       {
         name: "Users",
         url: "/users",
-        icon: "fa fa-address-book fa-lg mt-2",
+        icon: "fa fa-user fa-lg mt-2",
         children: [{
             name: "List",
             url: "/users",  
@@ -29,12 +29,18 @@ export default {
       {
         name: "Error 404",
         url: "/error404",
-        icon: "fa fa-home fa-lg mt-2"
+        icon: "fa fa-question-circle fa-lg mt-2"
+      },
+      // test Edit User
+      {
+        name: "Test Edit",
+        url: "/test",
+        icon: "fa fa-gears fa-lg mt-2"
       },
       {
         name: "++ Side Contents ++",
         url: "/testRedirection",
-        icon: "fa fa-home fa-lg mt-2"
+        icon: "fa fa-question-circle fa-lg mt-2"
       },
 
     ]

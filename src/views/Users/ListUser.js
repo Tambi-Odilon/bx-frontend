@@ -50,7 +50,7 @@ class ListUser extends Component {
         }
         return(
             <div>
-                *********** User Page Content ************
+                *********** List User Page Contents ************
                 <Row>
                     <Col>
                     <CardHeader>
@@ -78,7 +78,7 @@ class ListUser extends Component {
                                         <td>
                                         <Row>
                                             <Col md={3}>
-                                                <Button color="primary" className="px-4" href={"/user/edit/" + user.idUser}>Editer</Button>
+                                                <Button color="primary" className="px-4" href={"/user/edit/" + user.idUser}/*  href={"/test/" + user.idUser}*/  >Editer</Button>
                                             </Col>
                                             <Col md={3}>
                                                 <Button color="danger" className="px-4" onClick={() => this.deleteClicked(user.idUser, user.username)}>Supprimer</Button>

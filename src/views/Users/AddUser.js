@@ -162,6 +162,7 @@ class AddUser extends Component {
 
         return (
             <div className="animated fadeIn">
+              *********** Add User Page Contents ************
                <Container>
         <Card className="mx-4">
           <CardHeader>

@@ -93,6 +93,8 @@ constructor(props){
     this.onSubmit = this.onSubmit.bind(this)
     this.touchAll = this.touchAll.bind(this)
   }
+
+  // get user to modify
  async componentDidMount() {
         // console.log("**** CDidMont id : " + this.props.match.params.idUser)
       
@@ -112,8 +114,8 @@ constructor(props){
       } );
   }
 
+  // submit new user
   onSubmit(values, {setSubmitting,setErrors}) {
-
     console.log(values)
     console.log(this.props.match.params.idUser)
     let user = {
@@ -175,9 +177,9 @@ constructor(props){
 
   render() {
       const userNew = this.state.userNew;
-// console.log(userNew)
+console.log(userNew)
     const roles = this.state.roles;
-// console.log(roles)
+console.log(roles)
 
     /* const test = roles.map(r => {
       console.log(r.role)
@@ -185,6 +187,7 @@ constructor(props){
 
     return (
       <div className="animated fadeIn">
+        *********** List User Test Page Contents ************
       <Container>
         <Card className="mx-4">
           <CardHeader>
@@ -225,7 +228,6 @@ constructor(props){
                                  required //initialValues={initialValues}
                                  onChange={handleChange}
                                  onBlur={handleBlur}
-                                 value={ values.userName }
                                  />
                           <FormFeedback>{errors.userName}</FormFeedback>
                         </FormGroup>
@@ -241,7 +243,6 @@ constructor(props){
                                  required
                                  onChange={handleChange}
                                  onBlur={handleBlur}
-                                 value={values.role}
                                  >
                               {
                                 roles.map(r => (
@@ -262,8 +263,7 @@ constructor(props){
                                      invalid={touched.password && !!errors.password}
                                      required
                                      onChange={handleChange}
-                                     onBlur={handleBlur}
-                                     value={values.password} />
+                                     onBlur={handleBlur} />
                               {/*<FormFeedback>Required password containing at least: number, uppercase and lowercase letter, 8 characters</FormFeedback>*/}
                               <FormFeedback>{errors.password}</FormFeedback>
                             </FormGroup>
@@ -280,8 +280,7 @@ constructor(props){
                                      invalid={touched.confirmPassword && !!errors.confirmPassword}
                                      required
                                      onChange={handleChange}
-                                     onBlur={handleBlur}
-                                     value={values.confirmPassword} />
+                                     onBlur={handleBlur}/>
                               <FormFeedback>{errors.confirmPassword}</FormFeedback>
                             </FormGroup>
                           </Col>

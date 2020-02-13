@@ -75,8 +75,10 @@ constructor(props){
     const userNew = this.state.userNew;
 
     console.log(userNew.username)
+    
     return (
       <div className="animated fadeIn">
+        *********** List User Page Contents ************
       <Container>
         <Card className="mx-4">
           <CardHeader>
